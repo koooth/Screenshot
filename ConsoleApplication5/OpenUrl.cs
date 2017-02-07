@@ -8,6 +8,7 @@ using OpenQA.Selenium.Firefox;
 using NUnit.Framework;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace ConsoleApplication5
 {
@@ -40,9 +41,22 @@ namespace ConsoleApplication5
             driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(50));
             IWebElement page = driver.FindElement(By.CssSelector(".main-logo"));
             Assert.True(page.Displayed);
-            ITakesScreenshot screenshotDriver = driver as ITakesScreenshot;
-            Screenshot screenshot = screenshotDriver.GetScreenshot();
-            screenshot.SaveAsFile("c:/scr/test.png", ImageFormat.Jpeg);
+            string path = "C:\\scr\\";
+            string SSName = ".png";
+            DateTime now = DateTime.Now;
+            Console.WriteLine(now.ToString("yyyyddMMHHmmss"));
+
+            try
+            {
+                ITakesScreenshot screenshotDriver = driver as ITakesScreenshot;
+                Screenshot screenshot = screenshotDriver.GetScreenshot();
+                screenshot.SaveAsFile((path + now.ToString("yyyyddMMHHmmss") + SSName), ImageFormat.Jpeg);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
         }
 
         [TearDown]
@@ -50,5 +64,6 @@ namespace ConsoleApplication5
         {
             driver.Quit();
         }
+        
     }
 }
