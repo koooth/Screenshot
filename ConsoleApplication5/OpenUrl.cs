@@ -42,7 +42,7 @@ namespace ConsoleApplication5
             Assert.True(page.Displayed);
             ITakesScreenshot screenshotDriver = driver as ITakesScreenshot;
             Screenshot screenshot = screenshotDriver.GetScreenshot();
-            screenshot.SaveAsFile("c:/src/test.png", ImageFormat.Jpeg);
+            screenshot.SaveAsFile("c:/scr/test.png", ImageFormat.Jpeg);
         }
 
         [TearDown]
